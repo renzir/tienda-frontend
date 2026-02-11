@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { productService } from '../api/productSerivce'
+import { useCart } from '../context/CartContext'
 import type { Product } from '../types'
-import { useCart } from '../context/CartContext'  
 
 export function ProductDetails() {
   const { productId } = useParams<{ productId: string }>()
@@ -12,7 +12,7 @@ export function ProductDetails() {
   useEffect(() => {
     if (!productId) return
 
-    productService.getProdcutById(Number(productId)).then((response: any) => {
+    productService.getProductById(Number(productId)).then((response: any) => {
       if (response.success) {
         setProduct(response.data)
       }
@@ -34,7 +34,9 @@ export function ProductDetails() {
           <button
             onClick={() => addToCart(product)}
             className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 transition-colors"
-          >Añadir al carrito</button>
+          >
+            Añadir al carrito
+          </button>
           <Link to="/" className="text-blue-500 underline mt-4 block">
             Volver a productos
           </Link>
