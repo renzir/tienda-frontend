@@ -45,7 +45,7 @@ export function Products() {
                 onClick={() => handleVerDetalle(product.id)}
                 className="text-left mb-2 cursor-pointer"
               >
-                <h2 className="text-lg font-bold text-slate-800 line-clamp-1 group-hover:text-orange-600 transition-colors">
+                <h2 className="text-lg font-bold text-slate-800 line-clamp-1 group-hover:text-emerald-600 transition-colors">
                   {product.nombre}
                 </h2>
               </button>
@@ -57,8 +57,8 @@ export function Products() {
                 </div>
 
                 <button
-                  onClick={() => addToCart(product)} // Usando la función del context
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-xl transition-all duration-300 hover:scale-110 active:scale-95 shadow-md shadow-orange-200 cursor-pointer font-bold"
+                  onClick={() => addToCart(product)}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-emerald-100 cursor-pointer font-bold"
                 >
                   Añadir
                 </button>

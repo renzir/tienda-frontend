@@ -1,26 +1,17 @@
 import type { ReactNode } from 'react'
-import { createContext, useContext} from 'react'
-import type { Product } from '../types'
-import { useCartReducer  } from '../reducer/CartReducer'
-
-interface CartContextType {
-  cart: Product[]
-  addToCart: (product: Product) => void
-  totalItems: number
-  removeFromCart: (product: Product) => void
-  clearCart: () => void
-  totalPrice: number
-}
+import { createContext, useContext } from 'react'
+import { useCartReducer } from '../reducer/CartReducer'
+import type { CartContextType } from '../types'
 
 export const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-
-const { cart, addToCart, removeFromCart, clearCart, totalItems, totalPrice } = useCartReducer ()
-
+  const { cart, addToCart, removeFromCart, clearCart, totalItems, totalPrice } = useCartReducer()
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, totalItems, totalPrice }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, clearCart, totalItems, totalPrice }}
+    >
       {children}
     </CartContext.Provider>
   )

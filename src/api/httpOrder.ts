@@ -1,34 +1,15 @@
-import type { CreateOrderDTO, Product } from '../types'
-//const BASE_URL = '/api'
-const BASE_URL = import.meta.env.VITE_API_URL
-
+import type { CreateOrderDTO, CreateOrderResponse, Product } from '../types'
+import { authFetch } from './authFetch'
 
 export const httpOrder = {
-  post: async (url: string, order: CreateOrderDTO) => {
+  post: async (url: string, order: CreateOrderDTO): Promise<CreateOrderResponse> => {
     if (!url || !order) {
       throw new Error('URL y orden son requeridas')
     }
-
-    try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(order),
-      })
-
-      const data = await response.json().catch(() => ({}))
-
-      if (!response.ok) {
-        throw new Error(data?.message || `Error ${response.status}: ${response.statusText}`)
-      }
-
-      return data
-    } catch (error) {
-      console.error('Error al crear la orden:', error)
-      throw error
-    }
+    return authFetch<CreateOrderResponse>(url, {
+      method: 'POST',
+      body: JSON.stringify(order),
+    })
   },
 
   addProductsToOrder: async <T>(url: string, cantidad: Product['cantidad']): Promise<T> => {
@@ -37,73 +18,23 @@ export const httpOrder = {
     }
 
     if (cantidad <= 0) {
-      throw new Error('La cantidad debe ser mayor a 0')
+      throw new Error('La cantidad debe ser mayor de 0')
     }
 
-    try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cantidad }),
-      })
-
-      const data = await response.json().catch(() => ({}))
-
-      if (!response.ok) {
-        throw new Error(data?.message || `Error ${response.status}: ${response.statusText}`)
-      }
-
-      return data as T
-    } catch (error) {
-      console.error('Error al añadir productos a la orden:', error)
-      throw error
-    }
+    return authFetch<T>(url, {
+      method: 'POST',
+      body: JSON.stringify({ cantidad }),
+    })
   },
   confirmPayment: async <T>(url: string): Promise<T> => {
- 
-    try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json().catch(() => ({}))
-
-      if (!response.ok) {
-        throw new Error(data?.message || `Error ${response.status}: ${response.statusText}`)
-      }
-
-      return data as T
-    } catch (error) {
-      console.error('Error al confirmar la orden:', error)
-      throw error
-    }
+    return authFetch<T>(url, {
+      method: 'POST',
+    })
   },
 
   cancelOrder: async <T>(url: string): Promise<T> => {
-
-    try {
-      const response = await fetch(`${BASE_URL}${url}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json().catch(() => ({}))
-
-      if (!response.ok) {
-        throw new Error(data?.message || `Error ${response.status}: ${response.statusText}`)
-      }
-
-      return data as T
-    } catch (error) {
-      console.error('Error al cancelar la orden:', error)
-      throw error
-    }
+    return authFetch<T>(url, {
+      method: 'POST',
+    })
   },
 }

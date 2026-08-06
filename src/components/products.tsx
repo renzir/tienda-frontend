@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { productService } from '../api/productSerivce'
-import type { Product } from '../types/products'
 import { useNavigate } from 'react-router-dom'
+import { productService } from '../api/productService'
+import type { Product } from '../types'
 
 export function Products() {
   const [products, setProducts] = useState<Product[]>([])
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     productService.getProducts().then((response: any) => {
@@ -16,16 +16,17 @@ export function Products() {
   }, [])
 
   const handleAddToCart = (id: number) => {
-
-    navigate(`/products/${id}`);
-
+    navigate(`/products/${id}`)
   }
   return (
     <main className="p-4  ">
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product) => (
           <li key={product.id}>
-            <button onClick={() =>handleAddToCart(product.id)} className="cursor-pointer w-full h-full text-left">
+            <button
+              onClick={() => handleAddToCart(product.id)}
+              className="cursor-pointer w-full h-full text-left"
+            >
               <img
                 src={product.imagen}
                 alt={product.nombre}

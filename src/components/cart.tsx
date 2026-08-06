@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
+import { useCartReducer } from '../reducer/CartReducer'
 import type { Product } from '../types'
 import { Mas, Menos } from './icons'
 
 export function Cart() {
-  const { cart, totalItems, totalPrice, addToCart, removeFromCart, clearCart } = useCart()
+  const { cart, totalItems, totalPrice, addToCart, removeFromCart, clearCart } = useCartReducer()
   const navigate = useNavigate()
 
   const handleMas = (product: Product) => {
@@ -12,14 +12,12 @@ export function Cart() {
   }
   const handleMenos = (product: Product) => {
     removeFromCart(product)
-    
   }
-  
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
       <h2 className="text-2xl font-black text-slate-800 border-b border-slate-100 pb-6 mb-6">
-        Tu Carrito <span className="text-orange-500">({totalItems})</span>
+        Tu Carrito <span className="text-emerald-600">({totalItems})</span>
       </h2>
 
       {cart.length === 0 ? (
@@ -62,7 +60,9 @@ export function Cart() {
                       <Menos className="size-4" />
                     </button>
 
-                    <span className="font-bold text-slate-800 w-6 text-center">{product.cantidad}</span>
+                    <span className="font-bold text-slate-800 w-6 text-center">
+                      {product.cantidad}
+                    </span>
 
                     <button
                       onClick={() => handleMas(product)}
@@ -87,7 +87,7 @@ export function Cart() {
             <div className="flex justify-between items-end mb-8">
               <Link
                 to="/"
-                className="text-slate-400 font-semibold hover:text-orange-500 transition-colors"
+                className="text-slate-400 font-semibold hover:text-emerald-600 transition-colors"
               >
                 ← Continuar comprando
               </Link>
@@ -99,7 +99,7 @@ export function Cart() {
 
             <button
               onClick={() => navigate('/checkout')}
-              className="w-full bg-orange-500 text-white py-5 rounded-2xl font-black text-xl hover:bg-orange-600 hover:scale-[1.02] transition-all shadow-lg shadow-orange-100 active:scale-95 cursor-pointer"
+              className="w-full bg-emerald-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-emerald-700 hover:scale-[1.02] transition-all shadow-lg shadow-emerald-100 active:scale-95 cursor-pointer"
             >
               Finalizar Compra
             </button>

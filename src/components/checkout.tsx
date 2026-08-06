@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { orderService } from '../api/orderService'
 import Pago from '../assets/pago.png'
-import { useCart } from '../context/CartContext'
+import { useCartReducer } from '../reducer/CartReducer'
 
 export function Checkout() {
-  const { cart, clearCart, totalPrice } = useCart()
+  const { cart, clearCart, totalPrice } = useCartReducer()
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -29,19 +29,16 @@ export function Checkout() {
     let orderId: number | null = null
 
     try {
-      // creamos la orden
       const res = await orderService.createOrder({ dato_usuario: name, direccion: address })
       if (!res.success) throw new Error(res.message || 'Error al crear pedido')
       orderId = res.orderId
 
-      // procesamos productos
       if (orderId !== null) {
         await orderService.processOrderItems(orderId, cart)
       } else {
         throw new Error('No se pudo obtener el ID de la orden')
       }
 
-      // confirmamos, a futuro ponde un modal
       if (window.confirm('¿Confirmar la orden?')) {
         await orderService.confirmPayment(orderId)
         form.reset()
@@ -76,7 +73,7 @@ export function Checkout() {
           {error}
           <Link
             to="/"
-            className="text-slate-400 font-semibold hover:text-orange-500 transition-colors"
+            className="text-slate-400 font-semibold hover:text-emerald-600 transition-colors block mt-2"
           >
             ← Volver al Carrito
           </Link>
@@ -89,9 +86,9 @@ export function Checkout() {
         </div>
       )}
 
-      <div className="bg-orange-50 p-6 rounded-2xl mb-10 flex justify-between items-center border border-orange-100">
-        <span className="text-orange-800 font-semibold">Total a pagar:</span>
-        <span className="text-3xl font-black text-orange-600">${totalPrice.toFixed(2)}</span>
+      <div className="bg-emerald-50 p-6 rounded-2xl mb-10 flex justify-between items-center border border-emerald-100">
+        <span className="text-emerald-900 font-semibold">Total a pagar:</span>
+        <span className="text-3xl font-black text-emerald-600">${totalPrice.toFixed(2)}</span>
       </div>
 
       <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
@@ -103,7 +100,7 @@ export function Checkout() {
             placeholder="Juan Pérez"
             required
             disabled={loading}
-            className="h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all disabled:opacity-50"
+            className="h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all disabled:opacity-50"
           />
         </div>
 
@@ -115,7 +112,7 @@ export function Checkout() {
             placeholder="Calle Ejemplo 123, Ciudad"
             required
             disabled={loading}
-            className="h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all disabled:opacity-50"
+            className="h-12 px-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all disabled:opacity-50"
           />
         </div>
 

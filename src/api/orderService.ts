@@ -1,8 +1,9 @@
 import { httpOrder } from '../api/httpOrder'
-import type { CreateOrderDTO, Order, Product } from '../types'
+import type { CreateOrderDTO, CreateOrderResponse, Order, Product } from '../types'
 
 export const orderService = {
-  createOrder: (order: CreateOrderDTO) => httpOrder.post('/order/createOrder', order),
+  createOrder: (order: CreateOrderDTO): Promise<CreateOrderResponse> =>
+    httpOrder.post('/order/createOrder', order),
 
   addProductsToOrder: (
     orderid: Order['id'],
@@ -12,10 +13,12 @@ export const orderService = {
 
   confirmPayment: (orderId: Order['id']) => httpOrder.confirmPayment(`/order/${orderId}/confirm`),
   cancelOrder: (orderId: Order['id']) => httpOrder.cancelOrder(`/order/${orderId}/cancel`),
-  
-  processOrderItems: async (orderId: number, cart: any[]) => {
+
+  processOrderItems: async (orderId: number, cart: Product[]) => {
     for (const product of cart) {
-      await orderService.addProductsToOrder(orderId, product.id, product.cantidad)
+      if (product.cantidad && product.id) {
+        await orderService.addProductsToOrder(orderId, product.id, product.cantidad)
+      }
     }
   },
 }
