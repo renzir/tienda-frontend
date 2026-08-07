@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# 🛍️ E-Commerce App (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una interfaz de usuario moderna, rápida y responsiva para una tienda en línea, construida con **React**, **TypeScript**, **Vite** y **Tailwind CSS**. Este proyecto forma parte de un **portafolio profesional** orientado a demostrar buenas prácticas en el cliente, manejo de estado global, consumo de APIs y testing automatizado.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Objetivo del Proyecto
 
-## React Compiler
+Demostrar capacidades en el desarrollo Frontend con React moderno:
+- Gestión del estado global del carrito de compras mediante React Context y Reducers.
+- Integración y consumo de API RESTful con autenticación basada en cookies/JWT.
+- Tipado estricto con TypeScript para prevención de errores y mejor mantenibilidad.
+- Pruebas unitarias e integración de componentes con Vitest y React Testing Library.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 18** & **Vite**
+- **TypeScript**
+- **Tailwind CSS** (estilizado ágil y responsivo)
+- **React Router Dom** (rutas dinámicas y protegidas)
+- **Vitest** & **Testing Library** (pruebas unitarias e integración)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📋 Requisitos e Instalación
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Clonar e instalar dependencias**:
+   ```bash
+   cd Frontend
+   npm install
+   ```
+2. **Configurar variables de entorno (`.env`)**:
+   ```env
+   VITE_API_URL=http://localhost:3000
+   ```
+3. **Ejecutar en desarrollo**:
+   ```bash
+   npm run dev
+   ```
+4. **Ejecutar pruebas unitarias**:
+   ```bash
+   npm run test
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📌 Estado Actual y Futuras Mejoras (Out of Scope)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+El desarrollo del frontend se da por **finalizado** para fines del portafolio. Cuenta con catálogo de productos, carrito persistente, autenticación y proceso de checkout. En una aplicación de producción completa se podrían agregar funcionalidades como:
+
+- **Perfil de Usuario y Mis Ventas/Compras**: Sección para ver historial de pedidos del usuario autenticado y estado de sus órdenes.
+- **CRUD y Gestión de Mis Productos (Vendedor)**: Módulo administrativo en frontend para agregar, editar o eliminar productos en la tienda.
+- **Ranking de Mas Vendidos**: Visualización en la página principal de productos destacados o de mayor venta (integrado con métricas del backend).
+- **Paginación y Filtros Avanzados**: Filtrado por rango de precios, categorías y ordenamiento dinámico desde el servidor.
+
