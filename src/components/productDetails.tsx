@@ -23,6 +23,11 @@ export function ProductDetails() {
     <div className="p-6">
       {product ? (
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-sm">
+          {product.categoria && (
+            <span className="inline-block bg-emerald-100 text-emerald-800 text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
+              {product.categoria}
+            </span>
+          )}
           <h2 className="text-3xl font-black mb-4">{product.nombre}</h2>
           <img
             className="mx-auto w-full max-w-sm aspect-square object-cover rounded-2xl mb-6 shadow-md"
@@ -30,10 +35,13 @@ export function ProductDetails() {
             alt={product.nombre}
           />
           <p className="text-2xl font-bold text-emerald-600">${product.precio}</p>
+          {product.descripcion && (
+            <p className="text-slate-600 mt-4 leading-relaxed">{product.descripcion}</p>
+          )}
           <p className="text-slate-500 mt-2">Disponibles: {product.cantidad_disponible}</p>
           <button
             onClick={() => addToCart(product)}
-            className="bg-emerald-600 text-white px-6 py-2.5 rounded-full hover:bg-emerald-700 transition-colors font-semibold shadow-sm mt-3"
+            className="bg-emerald-600 text-white px-6 py-2.5 rounded-full hover:bg-emerald-700 transition-colors font-semibold shadow-sm mt-4"
           >
             Añadir al carrito
           </button>

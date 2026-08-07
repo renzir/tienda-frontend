@@ -5,4 +5,6 @@ export interface Product {
   imagen: string
   cantidad_disponible: number
   cantidad?: number
+  categoria?: string
+  descripcion?: string
 }

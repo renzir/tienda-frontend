@@ -18,6 +18,8 @@ const mockProduct: Product = {
   precio: 120,
   imagen: 'teclado.jpg',
   cantidad_disponible: 8,
+  categoria: 'Periféricos',
+  descripcion: 'Teclado mecánico de alta precisión con luces RGB.',
 }
 
 function TestCartConsumer() {
@@ -65,6 +67,10 @@ describe('<ProductDetails />', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Teclado Mecánico RGB')).toBeInTheDocument()
+      expect(screen.getByText('Periféricos')).toBeInTheDocument()
+      expect(
+        screen.getByText('Teclado mecánico de alta precisión con luces RGB.')
+      ).toBeInTheDocument()
       expect(screen.getByText('$120')).toBeInTheDocument()
       expect(screen.getByText('Disponibles: 8')).toBeInTheDocument()
     })
