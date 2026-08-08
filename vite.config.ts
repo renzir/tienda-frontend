@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api-tienda.renzi.dev',
+        target: 'http://localhost:3000', // o el puerto local donde corras tu backend
         changeOrigin: true,
         secure: false,
       },
